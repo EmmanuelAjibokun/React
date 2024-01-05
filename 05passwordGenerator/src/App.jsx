@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import './App.css'
 
@@ -8,6 +8,7 @@ function App() {
   const [numAllowed, setNumAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+  const passwordRef = useRef();
 
   const generatePassword = useCallback(() => {
     let pass = "";
@@ -24,6 +25,11 @@ function App() {
     setPassword(pass)
   }, [length, numAllowed, charAllowed]);
 
+  const copyPasswordToClipboard = () => {
+    window.navigator.clipboard.writeText(password)
+    passwordRef.current.select()
+  }
+
   useEffect(() => {
     generatePassword()
   }, [length, numAllowed, charAllowed])
@@ -38,15 +44,17 @@ function App() {
           className='outline-none w-full py-1 px-3'
           placeholder='Password'
           readOnly
+          ref={passwordRef}
           />
         <button
+          onClick={copyPasswordToClipboard}
           className='outline-non bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >copy</button>
       </div>
       <div
       className='flex text-sm gap-x-2'>
         <div className='flex items-center gap-x-1 text-white'>
-          <input 
+          <input
           type="range"
           min={6}
           max={20}
@@ -54,12 +62,12 @@ function App() {
           className='cursor-pointer'
           onChange={e=> setLength(e.target.value)}
           name=''
-          id=''/>
+          id='' />
           <label htmlFor="length">lenght: {length}</label>
         </div>
 
         <div className='flex items-center gap-x-1 text-white'>
-          <input 
+          <input
           type="checkbox"
           defaultChecked={numAllowed}
           onChange={() => {
