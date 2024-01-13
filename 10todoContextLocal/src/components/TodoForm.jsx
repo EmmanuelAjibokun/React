@@ -12,7 +12,7 @@ export default function TodoForm() {
   }
 
   return(
-    <form onSubmit={add}>
+    <form onSubmit={add} className="flex">
       <input 
       type="text"
       placeholder="Write Todo..."
