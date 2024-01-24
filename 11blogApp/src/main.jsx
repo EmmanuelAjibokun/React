@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Provider } from 'react-router-dom'
 import store from './store/store.js'
 import { AddPost, AllPosts, EditPost, Home, Login, Post, Signup } from "./pages/index.js"
-import AuthLayout from "./components/AuthLayout.jsx"
+import Authenticate from "./components/AuthLayout.jsx"
+import { Provider } from 'react-redux'
 
 const router = createBrowserRouter([
   {
@@ -20,49 +20,49 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <AuthLayout authentication={false}>
+          <Authenticate authentication={false}>
             <Login/>
-          </AuthLayout>
+          </Authenticate>
         )
       },
       {
         path: "/signup",
         element: (
-          <AuthLayout authentication={false}>
+          <Authenticate authentication={false}>
             <Signup/>
-          </AuthLayout>
+          </Authenticate>
         )
       },
       {
         path: "/all-posts",
         element: (
-          <AuthLayout authentication>
+          <Authenticate authentication>
             <AllPosts/>
-          </AuthLayout>
+          </Authenticate>
         )
       },
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication>
+          <Authenticate authentication>
             <AddPost/>
-          </AuthLayout>
+          </Authenticate>
         )
       },
       {
         path: "/edit-post/:slug",
         element: (
-          <AuthLayout authentication>
+          <Authenticate authentication>
             <EditPost/>
-          </AuthLayout>
+          </Authenticate>
         )
       },
       {
         path: "/post/:slug",
         element: (
-          <AuthLayout authentication>
+          <Authenticate authentication>
             <Post/>
-          </AuthLayout>
+          </Authenticate>
         )
       }
     ]
